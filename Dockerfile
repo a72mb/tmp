@@ -25,7 +25,9 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-install-project
 
 # Copy the project into the image
-COPY /src /app
+COPY . /app
+
+ENV FLASK_APP=board
 
 # Sync the project
 RUN --mount=type=cache,target=/root/.cache/uv \
@@ -33,6 +35,8 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 ENV PATH="/app/.venv/bin:$PATH"
 
-ENTRYPOINT []
+# Expose the port
+EXPOSE 8080
 
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
+# CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "board:app"]
