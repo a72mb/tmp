@@ -1,13 +1,10 @@
-networks:
-  my-network:
-    driver: bridge
 services:
   web:
     build: .
+    links:
+      - db
     ports:
       - "8080:8080"
-    networks:
-      - my-network
     develop:
       watch:
         # Sync the working directory with the `/app` directory in the container
@@ -25,13 +22,10 @@ services:
   db:
     container_name: mydb-tmp
     image: mysql:8.0
-    restart: always
     ports:
-        - "33060:3306"
+        - "32000:3306"
     environment:
         MYSQL_ROOT_PASSWORD: root
-    networks:
-      - my-network
     volumes:
       - db:/var/lib/mysql
 

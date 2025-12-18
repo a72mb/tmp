@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Copy the project into the image
 COPY . /app
 
-ENV FLASK_APP=board
+ENV FLASK_APP=knights
 
 # Sync the project
 RUN --mount=type=cache,target=/root/.cache/uv \
@@ -39,4 +39,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 8080
 
 # CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "board:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "knights:app"]
