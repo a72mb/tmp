@@ -3,7 +3,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 RUN apt-get upgrade
 RUN apt-get update
-RUN apt-get install -y wget build-essential
+RUN apt-get install -y wget build-essential libffi-dev libpam-ldap libldap2-dev libsasl2-dev libssl-dev
 RUN apt-get clean
 RUN apt-get update
 RUN apt-get -y install default-libmysqlclient-dev pkg-config python3-dotenv
@@ -27,7 +27,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Copy the project into the image
 COPY . /app
 
-ENV FLASK_APP=knights
+ENV FLASK_APP=login
 
 # Sync the project
 RUN --mount=type=cache,target=/root/.cache/uv \
@@ -39,4 +39,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 8080
 
 # CMD ["flask", "run", "--host=0.0.0.0", "--port=8080"]
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "knights:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "login:app"]

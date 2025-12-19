@@ -1,7 +1,8 @@
 services:
   web:
     build: .
-    links:
+    depends_on:
+      - ldap
       - db
     ports:
       - "8080:8080"
@@ -28,6 +29,18 @@ services:
         MYSQL_ROOT_PASSWORD: root
     volumes:
       - db:/var/lib/mysql
+
+  ldap:
+      image: bitnami/openldap:latest
+      environment:
+        - LDAP_ADMIN_USERNAME=admin
+        - LDAP_ADMIN_PASSWORD=adminpassword
+        - LDAP_USER_DN=ou=users,dc=example,dc=com
+        - LDAP_GROUP_DN=ou=groups,dc=example,dc=com
+      ports:
+        - "389:389"
+      volumes:
+        - ./ldap/initialize_ldap.sh:/docker-entrypoint-initdb.d/initialize_ldap.sh
 
 volumes:
   db:
