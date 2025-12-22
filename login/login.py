@@ -1,5 +1,7 @@
 from doctest import debug
 from flask import Blueprint, render_template,request,url_for,session,redirect
+from sqlalchemy import text
+from sqlalchemy.orm import Session
 from login.database import get_db
 
 bp = Blueprint("login", __name__)
@@ -15,9 +17,11 @@ def login():
         if connection is None:
             msg = 'Database connection error!'
             return redirect(url_for('login.login', msg=msg))
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute('SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password))
-        account = cursor.fetchone()
+
+        stmt=text('SELECT * FROM accounts WHERE username = :usr AND password = :pwd limit 1')
+        with Session(connection) as session:
+            result = session.execute(stmt, {'usr': username, 'pwd': password})
+            account = result.fetchone()
 
         if account:
             session['loggedin'] = True
@@ -47,15 +51,16 @@ def register():
         if connection is None:
             msg = 'Database connection error!'
             return redirect(url_for('login.register', msg=msg))
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute('SELECT * FROM accounts WHERE username = %s', (username,))
-        account = cursor.fetchone()
+        stmt=text('SELECT * FROM accounts WHERE username = :usr')
+        result=connection.execute(stmt, {'usr': username})
+        account = result.fetchone()
         if account:
             msg = 'Account already exists!'
         elif not username or not password or not email:
             msg = 'Please fill out the form!'
         else:
-            cursor.execute('INSERT INTO accounts (username, password, email) VALUES (%s, %s, %s)', (username, password, email))
+            stmt=text('INSERT INTO accounts (username, password, email) VALUES (:usr, :pwd, :email)')
+            connection.execute(stmt, {'usr': username, 'pwd': password, 'email': email})
             connection.commit()
             msg = 'You have successfully registered!'
             return render_template('login/form.html', msg=msg)

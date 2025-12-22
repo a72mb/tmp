@@ -2,7 +2,9 @@ import os
 from dotenv import load_dotenv
 from typing import List, Dict
 from flask import Flask
-
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 from login import login,pages,errors,database
 import pathlib
 
@@ -16,7 +18,7 @@ app.config.from_prefixed_env()
 app.logger.setLevel("INFO")
 app.secret_key = app.config.get('SECRET_KEY')
 
-database.init_app(app)
+# database.init_app(app)
 
 app.register_blueprint(login.bp)
 # app.register_blueprint(pages.bp)
