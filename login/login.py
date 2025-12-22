@@ -14,7 +14,7 @@ def login():
         connection = get_db()
         if connection is None:
             msg = 'Database connection error!'
-            return render_template("login/form.html", msg=msg)
+            return redirect(url_for('login.login', msg=msg))
         cursor = connection.cursor(dictionary=True)
         cursor.execute('SELECT * FROM accounts WHERE username = %s AND password = %s', (username, password))
         account = cursor.fetchone()
@@ -23,7 +23,8 @@ def login():
             session['loggedin'] = True
             session['id'] = account['id'] #type:ignore
             session['username'] = account['username'] #type:ignore
-            return render_template('app/index.html', msg='Logged in successfully!')
+            return render_template("app/index.html", msg=msg)
+            # return redirect(url_for('app.index', msg='Logged in successfully!'))
         else:
             msg = 'Incorrect username/password!'
     return render_template("login/form.html", msg=msg)
@@ -45,7 +46,7 @@ def register():
         connection = get_db()
         if connection is None:
             msg = 'Database connection error!'
-            return render_template("login/register.html", msg=msg)
+            return redirect(url_for('login.register', msg=msg))
         cursor = connection.cursor(dictionary=True)
         cursor.execute('SELECT * FROM accounts WHERE username = %s', (username,))
         account = cursor.fetchone()
@@ -57,6 +58,7 @@ def register():
             cursor.execute('INSERT INTO accounts (username, password, email) VALUES (%s, %s, %s)', (username, password, email))
             connection.commit()
             msg = 'You have successfully registered!'
+            return render_template('login/form.html', msg=msg)
     elif request.method == 'POST':
         msg = 'Please fill out the form!'
     return render_template("login/register.html", msg=msg)
