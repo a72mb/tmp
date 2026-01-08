@@ -5,10 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "bcrypt>=5.0.0",
     "click>=8.3.1",
     "flask>=3.1.2",
     "flask-login>=0.6.3",
     "flask-sqlalchemy>=3.1.1",
+    "flask-wtf>=1.2.2",
     "gunicorn>=23.0.0",
     "mysql-connector-python>=9.5.0",
     "mysqlclient>=2.2.7",
@@ -17,4 +19,5 @@ dependencies = [
     "setuptools>=80.9.0",
     "sqlalchemy>=2.0.45",
     "werkzeug>=3.1.4",
+    "wtforms[email]>=3.2.1",
 ]

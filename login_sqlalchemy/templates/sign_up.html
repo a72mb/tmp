@@ -11,17 +11,18 @@
     <div>{{msg}}</div>
     <h1>Sign Up</h1>
     <form method="post" action="{{url_for('login.register')}}">
+        {{ form.hidden_tag() }}
         <div style="display:flex;">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
+            {{ form.username.label }} {{ form.username }}
         </div>
         <div style="display:flex;">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password">
+            {{ form.email.label }} {{ form.email }}
         </div>
         <div style="display:flex;">
-            <label for="email">Email:</label>
-            <input type="text" id="email" name="email">
+            {{ form.password.label }} {{ form.password }}
+        </div>
+        <div style="display:flex;">
+            {{ form.confirm_password.label }} {{ form.confirm_password }}
         </div>
         <input type="submit" value="Sign Up">
     </form>
