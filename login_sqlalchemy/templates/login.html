@@ -1,26 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <title>&nbsp;</title>
-</head>
-
-<body>
-    <div>{{msg}}</div>
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
     <h1>Login</h1>
     <form method="post" action="{{url_for('login.login')}}">
         {{ form.hidden_tag() }}
-        <div style="display:flex;">
-            {{ form.email.label }} {{ form.email }}
+        <div class="login-form-fields">
+            <div class="login-form-group">
+                {{ form.email.label }} {{ form.email }}
+            </div>
+            <div class="login-form-group">
+                {{ form.password.label }} {{ form.password }}
+            </div>
+            {{ form.submit() }}
         </div>
-        <div style="display:flex;">
-            {{ form.password.label }} {{ form.password }}
-        </div>
-       {{ form.submit() }}
     </form>
     <p><a href="{{url_for('login.register')}}">Register</a></p>
-</body>
-
-</html>
+{% endblock %}

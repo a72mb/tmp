@@ -1,0 +1,198 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    padding: 20px;
+    margin: auto 30px;
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom: .5rem;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+button, input[type="submit"] {
+    margin: .25rem .125rem;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+button:hover, input[type="submit"]:hover {
+    color: #fff;
+    background-color: #5c636a;
+    border-color: #565e64;
+}
+form div.login-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+
+form div.login-form-fields div.login-form-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: space-between;
+}
+
+form div.login-form-fields div.login-form-group label {
+    font-weight: bold;
+}
+
+.message-box-trigger {
+    display: none
+}
+
+.msgbox-area {
+    font-size: 1em;
+    max-height: 100%;
+    position: fixed;
+    bottom: 15px;
+    left: 20px;
+    right: 20px;
+}
+
+.msgbox-box {
+    font-size: inherit;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.7);
+    margin: 0 0 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    border-radius: .25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.65);
+    transition: opacity 256ms ease-in;
+    padding: 1.5rem;
+}
+
+.msgbox-box.info {
+    background-color: #17a2b8;
+}
+
+.msgbox-box.success {
+    background-color: #28a745;
+}
+
+.msgbox-box.warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.msgbox-box.danger {
+    background-color: #dc3545;
+}
+
+.msgbox-box.msgbox-box-hide {
+    opacity: 0;
+}
+
+.msgbox-box:last-child {
+    margin: 0;
+}
+
+.msgbox-content {
+    font-size: inherit;
+    flex-shrink: 1;
+}
+
+.msgbox-command {
+    display: flex;
+    align-items: center;
+}
+
+.msgbox-close {
+    color: #ffffff;
+    font-size: inherit;
+    text-decoration: none;
+    margin: 0 10px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    position: relative;
+    transition: color 64ms ease-out, text-shadow 64ms ease-out;
+}
+
+.msgbox-close:hover {
+    color: #efefef;
+    text-shadow: 0 0 4px #ffffff;
+}
+
+.msgbox-close:first-child {
+    margin-left: auto;
+}
+
+.msgbox-close:last-child {
+    margin-right: 0;
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .msgbox-area {
+        left: 80px;
+        right: 80px;
+    }
+}
+
+@media (min-width: 768px) {
+    .msgbox-area {
+        width: 480px;
+        height: 0;
+        top: 15px;
+        left: auto;
+        right: 15px;
+    }
+}
